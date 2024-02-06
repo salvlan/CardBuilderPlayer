@@ -12,7 +12,7 @@ CardBuilderPlayer is a Java-based desktop application designed for creating and 
    - Load and engage in interactive quiz sessions with flash cards created using the Card Builder.
    - User-friendly interface for an enjoyable learning experience.
 
-![View of CardPLayer.](description_gifs/CardPlayer.gif)
+![View of CardPLayer.](description_gifs/CardPlayer.gif)  
 ## Key Features
 - Create custom flash cards with both text and images.
 - Save and organize flash cards for various subjects or topics.
