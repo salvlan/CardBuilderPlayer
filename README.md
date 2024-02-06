@@ -1,4 +1,6 @@
-# CardBuilderPlayer: Java Flash Card Desktop Game
+# CardBuilderPlayer: Java Flash Card Desktop Game  
+
+*Work in progress, contributions are appreciated!*
 ## Overview
 CardBuilderPlayer is a Java-based desktop application designed for creating and playing with flash cards. This project comprises two main components:
 1. ### Card Builder (CardBuilder.java):
