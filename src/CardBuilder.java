@@ -63,7 +63,13 @@ public class CardBuilder {
         mainPanel.add(aScroller);
 
         mainPanel.add(nextButton);
-        nextButton.addActionListener(new NextCardListener());
+        // ActionListener for the "Next Card" button
+        nextButton.addActionListener((e)->{
+            // Create a new Card with the current question and answer, add it to cardList, and clear the card
+            Card card = new Card (question.getText(), answer.getText());
+            cardList.add(card);
+            clearCard();
+        });
 
         // Set up menu bar with "File" menu containing "New" and "Save" options
         JMenuBar menuBar = new JMenuBar();
@@ -71,8 +77,23 @@ public class CardBuilder {
         JMenuItem newMenuItem = new JMenuItem("New");
         JMenuItem saveMenuItem = new JMenuItem("Save");
 
-        newMenuItem.addActionListener(new NewMenuListener());
-        saveMenuItem.addActionListener(new SaveMenuListener());
+        // ActionListener for the "New" option in the "File" menu
+        newMenuItem.addActionListener((e)->{
+            // Clear the cardList and the current card
+            cardList.clear();
+            clearCard();
+        });
+
+        // ActionListener for the "Save" option in the "File" menu
+        saveMenuItem.addActionListener((e)->{
+            // Create a new Card with the current question and answer, add it to cardList
+            Card card = new Card (question.getText(), answer.getText());
+            cardList.add(card);
+            // Open a file chooser dialog for saving the file and call saveFile method
+            JFileChooser fileSave = new JFileChooser();
+            fileSave.showSaveDialog(frame);
+            saveFile (fileSave.getSelectedFile());
+        });
 
         fileMenu.add(newMenuItem);
         fileMenu.add(saveMenuItem);
@@ -81,41 +102,9 @@ public class CardBuilder {
         // Set up frame with menu bar and main panel
         frame.setJMenuBar(menuBar);
         frame.getContentPane().add(BorderLayout.CENTER,mainPanel);
-        frame.setSize(600,600);
+        frame.setSize(550,600);
         frame.setVisible(true);
 
-    }
-
-    // ActionListener for the "Next Card" button
-    public class NextCardListener implements ActionListener {
-        public void actionPerformed (ActionEvent ev) {
-            // Create a new Card with the current question and answer, add it to cardList, and clear the card
-            Card card = new Card (question.getText(), answer.getText());
-            cardList.add(card);
-            clearCard();
-        }
-    }
-
-    // ActionListener for the "Save" option in the "File" menu
-    public class SaveMenuListener implements ActionListener {
-        public void actionPerformed (ActionEvent ev){
-            // Create a new Card with the current question and answer, add it to cardList
-            Card card = new Card (question.getText(), answer.getText());
-            cardList.add(card);
-            // Open a file chooser dialog for saving the file and call saveFile method
-            JFileChooser fileSave = new JFileChooser();
-            fileSave.showSaveDialog(frame);
-            saveFile (fileSave.getSelectedFile());
-        }
-    }
-
-    // ActionListener for the "New" option in the "File" menu
-    public class NewMenuListener implements ActionListener {
-        public void actionPerformed (ActionEvent ev) {
-            // Clear the cardList and the current card
-            cardList.clear();
-            clearCard();
-        }
     }
 
     // Method to clear the question and answer text areas

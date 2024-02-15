@@ -1,14 +1,13 @@
 import javax.swing.*;
 import java.util.*;
 import java.awt.*;
-import java.awt.event.*;
 import java.io.*;
 
 // Main class for CardPlayer
 public class CardPlayer {
 
     private JTextArea display;
-    private JTextArea answer;
+
     private ArrayList<Card> cardList;
     private Card currentCard;
     private int currentCardIndex;
@@ -49,27 +48,7 @@ public class CardPlayer {
         mainPanel.add(nextButton);
 
         // Add an action listener to the "Show question" button
-        nextButton.addActionListener(new NextCardListener());
-
-        // Set up menu bar with "File" menu containing "Load card set" option
-        JMenuBar menuBar = new JMenuBar();
-        JMenu fileMenu = new JMenu("File");
-        JMenuItem loadMenuItem = new JMenuItem("Load card set");
-        loadMenuItem.addActionListener(new OpenMenuListener());
-        fileMenu.add(loadMenuItem);
-        menuBar.add(fileMenu);
-
-        // Set up frame with menu bar and main panel
-        frame.setJMenuBar(menuBar);
-        frame.getContentPane().add(BorderLayout.CENTER,mainPanel);
-        frame.setSize(640,500);
-        frame.setVisible(true);
-
-    }
-
-    // ActionListener for the "Show question" button
-    public class NextCardListener implements ActionListener {
-        public void actionPerformed (ActionEvent ev){
+        nextButton.addActionListener((e)->{
             if (isShowAnswer) {
                 // Show the answer and change button text to "Next Card"
                 display.setText(currentCard.getAnswer());
@@ -85,17 +64,28 @@ public class CardPlayer {
                     nextButton.setEnabled(false);
                 }
             }
-        }
-    }
+        });
 
-    // ActionListener for the "Load card set" option in the "File" menu
-    public class OpenMenuListener implements ActionListener {
-        public void actionPerformed (ActionEvent ev){
+        // Set up menu bar with "File" menu containing "Load card set" option
+        JMenuBar menuBar = new JMenuBar();
+        JMenu fileMenu = new JMenu("File");
+        JMenuItem loadMenuItem = new JMenuItem("Load card set");
+        // ActionListener for the "Load card set" option in the "File" menu
+        loadMenuItem.addActionListener((e)->{
             // Open a file chooser dialog for loading the card set and call loadFile method
             JFileChooser fileOpen = new JFileChooser();
             fileOpen.showOpenDialog(frame);
             loadFile (fileOpen.getSelectedFile());
-        }
+        });
+        fileMenu.add(loadMenuItem);
+        menuBar.add(fileMenu);
+
+        // Set up frame with menu bar and main panel
+        frame.setJMenuBar(menuBar);
+        frame.getContentPane().add(BorderLayout.CENTER,mainPanel);
+        frame.setSize(550,500);
+        frame.setVisible(true);
+
     }
 
     // Method to load a card set from a file
